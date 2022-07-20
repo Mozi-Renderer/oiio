@@ -318,7 +318,7 @@ endif ()
 ###########################################################################
 # fmtlib
 
-option (BUILD_FMT_FORCE "Force local download/build of fmt even if installed" OFF)
+option (BUILD_FMT_FORCE "Force local download/build of fmt even if installed" ON)
 option (BUILD_MISSING_FMT "Local download/build of fmt if not installed" ON)
 set (BUILD_FMT_VERSION "8.0.0" CACHE STRING "Preferred fmtlib/fmt version, when downloading/building our own")
 

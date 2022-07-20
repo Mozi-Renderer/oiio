@@ -21,17 +21,17 @@ platform ?= unknown
 # return "x86" or "x86_64"
 hw := ${shell uname -m}
 #$(info hardware = ${hw})
-ifneq (${hw},x86)
-  ifneq (${hw},x86_64)
-    ifneq (${hw},i386)
-      ifneq (${hw},i686)
-        ifneq (${hw},aarch64)
-          $(error "ERROR: Unknown hardware architecture")
-        endif
-      endif
-    endif
-  endif
-endif
+# ifneq (${hw},x86)
+#   ifneq (${hw},x86_64)
+#     ifneq (${hw},i386)
+#       ifneq (${hw},i686)
+#         ifneq (${hw},aarch64)
+#           $(error "ERROR: Unknown hardware architecture")
+#         endif
+#       endif
+#     endif
+#   endif
+# endif
 
 # Use 'uname', lowercased and stripped of pesky stuff, and the hardware
 # architecture in ${hw} to determine the platform that we're building

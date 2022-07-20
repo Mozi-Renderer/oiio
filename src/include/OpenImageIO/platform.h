@@ -394,7 +394,7 @@
 #if defined(__CUDACC__)
 #    define OIIO_FORCEINLINE __inline__
 #elif defined(__GNUC__) || defined(__clang__) || __has_attribute(always_inline)
-#    define OIIO_FORCEINLINE inline __attribute__((always_inline))
+#    define OIIO_FORCEINLINE inline
 #elif defined(_MSC_VER) || defined(__INTEL_COMPILER)
 #    define OIIO_FORCEINLINE __forceinline
 #else
