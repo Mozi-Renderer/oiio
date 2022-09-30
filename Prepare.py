@@ -65,7 +65,70 @@ def build_tiff():
 def build_openexr():
     OPENEXR_VERSION = "v2.4.1"
     OPENEXR_REPO = "https://github.com/AcademySoftwareFoundation/openexr.git"
+    OPENEXR_DIR = dir_path + "/ext/openexr"
+    OPENEXR_BUILD_DIR = OPENEXR_DIR + "/build"
+    OPENEXR_INSTALL_DIR = dir_path + "/ext/dist"
+    print("openexr will be installed to " + OPENEXR_INSTALL_DIR)
+
+    if not os.path.isdir(OPENEXR_DIR):
+        os.system("git clone " + OPENEXR_REPO + " " + OPENEXR_DIR)
+    os.chdir(OPENEXR_DIR)
+
+    os.system("git checkout " + OPENEXR_VERSION + " --force")
+    if not os.path.isdir(OPENEXR_BUILD_DIR):
+        os.mkdir(OPENEXR_BUILD_DIR)
+
+    os.system("cmake -DCMAKE_BUILD_TYPE=Release -DILMBASE_PACKAGE_PREFIX=" + OPENEXR_INSTALL_DIR + " -DOPENEXR_BUILD_UTILS=0 -DOPENEXR_BUILD_TESTS=0 -DOPENEXR_BUILD_PYTHON_LIBS=0 -DCMAKE_INSTALL_PREFIX=" + OPENEXR_INSTALL_DIR + "..")
+    os.system("cmake --build . --config Release --target install")
+
+    os.environ["ILMBASE_ROOT"] = OPENEXR_INSTALL_DIR
+    os.environ["OPENEXR_ROOT"] = OPENEXR_INSTALL_DIR
+    os.environ["ILMBASE_LIBRARY_DIR"] = OPENEXR_INSTALL_DIR + "/lib"
+    os.environ["OPENEXR_LIBRARY_DIR"] = OPENEXR_INSTALL_DIR + "/lib"
+
+def build_libjpeg_turbo():
+    LIBJPEG_TURBO_VERSION = "2.0.5"
+    LIBJPEG_TURBO_REPO = "https://github.com/libjpeg-turbo/libjpeg-turbo.git"
+    LIBJPEG_TURBO_DIR = dir_path + "/ext/libjpeg-turbo"
+    LIBJPEG_TURBO_BUILD_DIR = LIBJPEG_TURBO_DIR + "/build"
+    LIBJPEG_TURBO_INSTALL_DIR = dir_path + "/ext/dist"
+
+    if not os.path.isdir(LIBJPEG_TURBO_DIR):
+        os.system("git clone " + LIBJPEG_TURBO_REPO + " " + LIBJPEG_TURBO_DIR)
+    os.chdir(LIBJPEG_TURBO_DIR)
+
+    os.system("git checkout " + LIBJPEG_TURBO_VERSION + " --force")
+    if not os.path.isdir(LIBJPEG_TURBO_BUILD_DIR):
+        os.mkdir(LIBJPEG_TURBO_BUILD_DIR)
+
+    os.system("cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=" + LIBJPEG_TURBO_INSTALL_DIR + "..")
+    os.system("cmake --build . --config Release --target install")
+
+    os.environ["JPEGTurbo_ROOT"] = LIBJPEG_TURBO_INSTALL_DIR
+
+def build_pybind11():
+    PYBIND11_VERSION = "v2.8.1"
+    PYBIND11_REPO = "https://github.com/pybind/pybind11.git"
+    PYBIND11_DIR = dir_path + "/ext/pybind11"
+    PYBIND11_BUILD_DIR = PYBIND11_DIR + "/build"
+    PYBIND11_INSTALL_DIR = dir_path + "/ext/dist"
+
+    if not os.path.isdir(PYBIND11_DIR):
+        os.system("git clone " + PYBIND11_REPO + " " + PYBIND11_DIR)
+    os.chdir(PYBIND11_DIR)
+
+    os.system("git checkout " + PYBIND11_VERSION + " --force")
+    if not os.path.isdir(PYBIND11_BUILD_DIR):
+        os.mkdir(PYBIND11_BUILD_DIR)
+
+    os.system("cmake -DPYBIND11_TEST=OFF -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=" + PYBIND11_INSTALL_DIR + "..")
+    os.system("cmake --build . --config Release --target install")
+
+    os.environ["pybind11_ROOT"] = PYBIND11_INSTALL_DIR
 
 # build_boost()
 # build_zlib()
 # build_tiff()
+# build_openexr()
+# build_libjpeg_turbo()
+build_pybind11()
