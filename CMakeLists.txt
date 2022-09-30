@@ -21,6 +21,11 @@ else ()
     set (${PROJECT_NAME}_DEV_RELEASE ON)
 endif ()
 
+SET(CMAKE_INCLUDE_PATH ${CMAKE_INCLUDE_PATH} "${PROJECT_SOURCE_DIR}/ext/boost")
+SET(CMAKE_LIBRARY_PATH ${CMAKE_LIBRARY_PATH} "${PROJECT_SOURCE_DIR}/ext/boost/stage/lib")
+
+FIND_PACKAGE(BOOST)
+
 # Set PROJECT_IS_TOP_LEVEL to ON if if this is the top level project (not
 # if this is included as a subproject of something else). Note that this is
 # handled automatically for CMake >= 3.21.
