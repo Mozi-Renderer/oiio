@@ -24,6 +24,8 @@ def build_boost():
     os.system('bootstrap.bat')
     os.system('b2.exe')
 
+    os.environ["BOOST_ROOT"] = BOOST_DIR
+
 def build_zlib():
     ZLIB_VERSION = "v1.2.11"
     ZLIB_REPO = "https://github.com/madler/zlib.git"
@@ -126,9 +128,21 @@ def build_pybind11():
 
     os.environ["pybind11_ROOT"] = PYBIND11_INSTALL_DIR
 
+def build_oiio():
+    OIIO_DIR = dir_path + "/src"
+    # OIIO_BUILD_DIR = OIIO_DIR + "/build"
+    OIIO_INSTALL_DIR = dir_path + "/dist"
+
+    os.chdir(OIIO_DIR)
+
+    os.system("cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=" + OIIO_INSTALL_DIR + "..")
+    os.system("cmake --build . --config Release --target install")
+
 # build_boost()
 # build_zlib()
 # build_tiff()
 # build_openexr()
 # build_libjpeg_turbo()
-build_pybind11()
+# build_pybind11()
+
+build_oiio()

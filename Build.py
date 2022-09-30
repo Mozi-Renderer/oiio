@@ -13,13 +13,15 @@ def main():
     dir_path = os.path.dirname(os.path.realpath(__file__))
     print("Current Path is " + dir_path)
 
+    boost_path = dir_path + "/ext/boost"
+
     if not os.path.isdir(dir_path + '/build/'):
         os.mkdir(dir_path + '/build/')
 
     os.chdir(dir_path + "/build")
     if systemName == "Windows":
         if args.target == "VS2022":
-            os.system('cmake -G "Visual Studio 17 2022" -A x64 ../')
+            os.system('cmake -DBOOST_ROOT=' + boost_path + ' -G "Visual Studio 17 2022" -A x64 ../')
         else:
             os.system('cmake -G "Visual Studio 16 2019" -A x64 ../')
     elif systemName == "Darwin":
